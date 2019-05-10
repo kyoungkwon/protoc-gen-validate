@@ -22,3 +22,14 @@ message MapValues { map<string, string> val = 1 [(validate.rules).map.values.str
 
 message MapKeysPattern   { map<string, string> val = 1 [(validate.rules).map.keys.string.pattern = "(?i)^[a-z0-9]+$"]; }
 message MapValuesPattern { map<string, string> val = 1 [(validate.rules).map.values.string.pattern = "(?i)^[a-z0-9]+$"]; }
+
+message MapCombination {
+    map<string, string> val = 1 [
+            (validate.rules).map = {
+                    min_pairs: 0,
+                    max_pairs: 128,
+                    keys: {string: {min_len: 2, max_len:63, pattern: "^[a-z0-9A-Z._-]$"}},
+                    values: {string: {min_len: 2, max_len:63, pattern: "^[a-z0-9A-Z._-]$"}}
+            }
+        ];
+}
